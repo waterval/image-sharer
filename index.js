@@ -154,4 +154,4 @@ app.post("/delete/:imageId", function(request, response) {
         });
 });
 
-server.listen(8080, () => console.log("app is listening!"));
+server.listen(process.env.PORT || 8080, () => console.log("app is listening!"));

@@ -1,7 +1,10 @@
-const spicedPg = require("spiced-pg");
-const database = spicedPg(
-    `postgres:postgres:postgres@localhost:5432/imageboard`
-);
+let spicedPg = require("spiced-pg");
+let database;
+if (process.env.DATABASE_URL) {
+    database = spicedPg(process.env.DATABASE_URL);
+} else {
+    database = spicedPg("postgres:postgres:postgres@localhost:5432/imageboard");
+}
 
 exports.addImage = (url, username, title, description, created_at) => {
     return database.query(
