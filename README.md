@@ -5,14 +5,14 @@ Image Sharing Platform enables users to upload their favorite images featuring o
 ## Preview
 
 <p align="center">
-<img src="/public/image-sharing-platform.png" alt="Preview of Image Sharing Platform">
+<img src="/public/image-sharing-platform-preview.png" alt="Preview of Image Sharing Platform">
 </p>
 
 ## Features
 
 -   Upload an image from a local drive
--   Add a username, title and description to an image
--   Add and view comment plus username to an image
+-   Add a username, title and description
+-   Add and view comments with a username
 -   Delete an image
 -   View the latest uploaded images
 -   Load more images by using a button
