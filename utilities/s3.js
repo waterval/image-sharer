@@ -20,25 +20,26 @@ exports.upload = (request, response, next) => {
     }
     const { filename, mimetype, size, path } = request.file;
 
-    const promise = s3
-        .putObject({
-            Bucket: "spicedling",
-            ACL: "public-read",
-            Key: filename,
-            Body: fs.createReadStream(path),
-            ContentType: mimetype,
-            ContentLength: size
-        })
+    s3.putObject({
+        Bucket: "image-sharing-platform",
+        ACL: "public-read",
+        Key: filename,
+        Body: fs.createReadStream(path),
+        ContentType: mimetype,
+        ContentLength: size
+    })
         .promise()
         .then(data => {
-            console.log("data: ", data);
+            fs.unlink(path, error => {
+                if (error) {
+                    return;
+                }
+            });
+            console.log("data inside 3.putObject: ", data);
             next();
         })
         .catch(error => {
-            console.log("error: ", error);
+            console.log("error inside s3.putObject catch: ", error);
             response.sendSatus(500);
-        })
-        .then(() => {
-            fs.unlink(path);
         });
 };
