@@ -1,6 +1,6 @@
 # Image Sharing Platform for optical illusions
 
-Image Sharing Platform enables users to upload their favorite images featuring optical illusions. A user can provide these images with their username, a title and a description. After a successful upload, the corresponding image shows up instantly in the image overview. After clicking on an image, it’s possible to view the provided information and add comments. Besides that an image can be deleted and will immediately get removed from the platform.
+Image Sharing Platform enables users to upload their favorite images featuring optical illusions. A user can provide these images with their username, a title and a description. After a successful upload, the corresponding image shows up instantly in the image overview. After clicking on an image, it’s possible to view the provided information and add comments. Besides that an image can be deleted and will immediately get removed from the platform. This will help keeping only optical illusion images.
 
 ## Preview
 
