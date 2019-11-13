@@ -15,7 +15,7 @@ const s3 = new aws.S3({
 exports.upload = (request, response, next) => {
     const { file } = request;
     if (!file) {
-        console.log("multer failed");
+        console.log("multer failed inside s3.js");
         return response.sendStatus(500);
     }
     const { filename, mimetype, size, path } = request.file;
@@ -30,16 +30,16 @@ exports.upload = (request, response, next) => {
     })
         .promise()
         .then(data => {
+            console.log("data in s3.putObject: ", data);
             fs.unlink(path, error => {
                 if (error) {
                     return;
                 }
             });
-            console.log("data inside 3.putObject: ", data);
             next();
         })
         .catch(error => {
-            console.log("error inside s3.putObject catch: ", error);
+            console.log("error in s3.putObject: ", error);
             response.sendSatus(500);
         });
 };
