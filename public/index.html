@@ -37,15 +37,19 @@
                     <p @click="closeOverview" class="overview-close">X</p>
                 </div>
                 <div class="overview-image-container" v-for="image in imageData">
-                    <img :src="image.url">
-                    <h2>{{image.title}}</h2>
-                    <p>{{image.description}}</p>
-                    <em>Uploaded by {{image.username}} on {{image.created_at}}</em>
-                    <i @click="refreshImages(image.id)">
-                        <u @click="deleteImage">
-                            <p @click="closeOverview">Delete image</p>
-                        </u>
-                    </i>
+                    <div>
+                        <img :src="image.url">
+                    </div>
+                    <div>
+                        <h2>{{image.title}}</h2>
+                        <p>{{image.description}}</p>
+                        <em>Uploaded by {{image.username}} on {{image.created_at}}</em>
+                    </div>
+                    <div>
+                        <button @click="toDelete = true" v-show="!toDelete">Delete image</button>
+                        <button @click="refreshImages(image.id); deleteImage(); closeOverview();" v-show="toDelete">Confirm deletion</button>
+                        <p v-show="toDelete">Are you sure you want to permanently delete this image?</p>
+                    </div>
                 </div>
                 <div class="comments-container">
                     <h3>Add a comment:</h3>

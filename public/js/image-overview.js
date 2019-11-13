@@ -7,7 +7,8 @@
                 comments: [],
                 imageData: "",
                 commentText: "",
-                commentUsername: ""
+                commentUsername: "",
+                toDelete: false
             };
         },
         mounted: function() {
