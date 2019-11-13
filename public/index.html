@@ -6,69 +6,67 @@
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1>We love optical illusions</h1>
-    <h3>Join our community by uploading your favorite images</h3>
+    <h1>Image Sharing Platform</h1>
+    <h3>Upload your favorite optical illusions</h3>
     <div class="main">
-
         <form>
             <input v-model='title' name="title" placeholder="title" type="text">
             <input v-model='description' name="description" placeholder="description" type="text">
             <input v-model='username' name="username" placeholder="username" type="text">
             <input @change="fileSelect" name="file" type="file" accept="image/*" id="file">
-            <button @click.prevent.default="dataUpload">submit</button>
+            <button @click.prevent.default="dataUpload">Submit image</button>
         </form>
-
-            <h3>Latest images:</h3>
-            <div class="images-container">
-                <div v-for="image in images" class="image">
-                    <a :href="'#' + image.id">
-                        <img :src=image.url>
-                        <h5>{{image.title}}</h5>
-                    </a>
-                </div>
+        <h3>Latest images:</h3>
+        <div class="images-container">
+            <div v-for="image in images" class="image-item">
+                <a :href="'#' + image.id" class="image-link">
+                    <img :src=image.url>
+                    <h5>{{image.title}}</h5>
+                </a>
             </div>
-
+        </div>
         <form>
             <button @click.prevent.default="getMoreImages" :disabled="showMoreButton">{{textMoreButton}}</button>
         </form>
-
         <image-overview v-if="imageId" :id="imageId" @close="closeOverview" @refresh="refreshImages"></image-overview>
     </div>
     <script id="overview-template" type="text/x-template">
         <div class="overview-container">
 
-            <div>
-                <p @click="closeOverview" class="close-overview">X</p>
-            </div>
-            <div class="image-container" v-for="image in imageData">
-                <img :src="image.url">
-                <h2>{{image.title}}</h2>
-                <p>{{image.description}}</p>
-                <em>Uploaded by {{image.username}} on {{image.created_at}}</em>
-                <i @click="refreshImages(image.id)"><u @click="deleteImage"><p @click="closeOverview">Delete image</p></u></i>
-            </div>
-            <div class="comments-container">
-                <h3>Add a comment:</h3>
-                <form>
-                    <div class="individual-field">
-                        <label for="commentText">Comment:</label>
-                        <input v-model='commentText' name="commentText" placeholder="comment" type="text">
-                    </div>
-                    <div class="individual-field">
-                        <label for="commentUsername">Username:</label>
-                        <input v-model="commentUsername" name="commentUsername" placeholder="username" type="text">
-                    </div>
-                    <button @click.prevent.default="commentUpload">submit</button>
-                </form>
-                <div v-for="comment in comments" class="individual-comment">
-                    <p>{{comment.comment}}</p>
-                    <p><strong>{{comment.username}}</strong> on {{comment.created_at}}</p>
+                <div>
+                    <p @click="closeOverview" class="overview-close">X</p>
                 </div>
+                <div class="overview-image-container" v-for="image in imageData">
+                    <img :src="image.url">
+                    <h2>{{image.title}}</h2>
+                    <p>{{image.description}}</p>
+                    <em>Uploaded by {{image.username}} on {{image.created_at}}</em>
+                    <i @click="refreshImages(image.id)">
+                        <u @click="deleteImage">
+                            <p @click="closeOverview">Delete image</p>
+                        </u>
+                    </i>
+                </div>
+                <div class="comments-container">
+                    <h3>Add a comment:</h3>
+                    <form>
+                        <div class="individual-field">
+                            <label for="commentText">Comment:</label>
+                            <input v-model='commentText' name="commentText" placeholder="comment" type="text">
+                        </div>
+                        <div class="individual-field">
+                            <label for="commentUsername">Username:</label>
+                            <input v-model="commentUsername" name="commentUsername" placeholder="username" type="text">
+                        </div>
+                        <button @click.prevent.default="commentUpload">Submit comment</button>
+                    </form>
+                    <div v-for="comment in comments" class="individual-comment">
+                        <p>{{comment.comment}}</p>
+                        <p><strong>{{comment.username}}</strong> on {{comment.created_at}}</p>
+                    </div>
             </div>
-
         </div>
     </script>
-
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
     <script src="/js/image-overview.js"></script>

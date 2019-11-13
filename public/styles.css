@@ -27,53 +27,62 @@ h3 {
     padding: 20px;
     margin: 0 3rem;
     width: 21rem;
-    height: 15rem;
+    height: 21rem;
     margin: 56px;
     border-width: 25px;
     border-style: outset;
     box-shadow: 0 14px 10px -6px black;
-    opacity: 0.9;
 }
 
 .images-container div:hover {
-    opacity: 1;
+    filter: brightness(75%);
 }
 
 .images-container img {
     width: 100%;
-    height: 10rem;
-    object-fit: cover;
 }
 
-.images-container h5 {
+.image-item {
+    position: relative;
+}
+
+h5 {
+    position: absolute;
+    bottom: 8px;
+    left: 0;
+    right: 0;
+    margin: auto;
     font-size: 15px;
-    margin-top: 9px;
 }
 
 .overview-container {
     position: fixed;
     top: 0;
+    left: 3%;
     bottom: 0;
-    width: 95%;
-    margin-left: 30px;
+    width: 94%;
+    overflow-y: auto;
     background-color: lightgrey;
 }
 
-.image-container img {
-    width: 300px;
-    height: 200px;
+.overview-image-container img {
+    width: 400px;
 }
 
-.image-container {
+.overview-image-container {
     text-align: center;
 }
 
-.close-overview {
+.overview-close {
     font-size: 30px;
     text-align: right;
     margin-top: 30px;
     margin-right: 30px;
     font-family: arial;
+}
+
+.comments-container {
+    min-height: 100%;
 }
 
 .individual-comment {
@@ -90,6 +99,7 @@ label {
 button {
     margin: 10px 0;
 }
+
 button:disabled {
     border: 1px solid #999999;
     background-color: #cccccc;
