@@ -29,13 +29,11 @@
         methods: {
             dataUpload: function() {
                 let self = this;
-                console.log("self: ", self);
                 let formData = new FormData();
                 formData.append("title", this.title);
                 formData.append("description", this.description);
                 formData.append("username", this.username);
                 formData.append("file", this.file);
-                console.log("formData: ", formData);
                 axios
                     .post("/upload", formData)
                     .then(results => {
@@ -44,6 +42,7 @@
                         self.description = "";
                         self.username = "";
                         self.uploadError = false;
+                        self.file = null;
                         document.getElementById("file").value = "";
                     })
                     .catch(error => {
