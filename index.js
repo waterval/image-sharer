@@ -7,6 +7,7 @@ const path = require("path");
 const s3 = require("./utilities/s3");
 const config = require("./config");
 const database = require("./utilities/database");
+const rateLimit = require("express-rate-limit");
 
 const diskStorage = multer.diskStorage({
     destination: function(request, file, callback) {
@@ -37,6 +38,13 @@ const uploader = multer({
     }
 });
 
+const limiter = rateLimit({
+    windowMs: 5 * 60 * 1000,
+    max: 3,
+    message:
+        "Too many images uploaded from this IP, please try again in 5 minutes"
+});
+
 app.use(express.static("./public"));
 
 app.use(require("body-parser").json());
@@ -55,7 +63,7 @@ app.get("/images", function(request, response) {
         });
 });
 
-app.post("/upload", uploader.single("file"), s3.upload, function(
+app.post("/upload", limiter, uploader.single("file"), s3.upload, function(
     request,
     response
 ) {
@@ -147,11 +155,7 @@ app.post("/delete/:imageId", function(request, response) {
     const imageId = request.params.imageId;
     database
         .deleteComments(imageId)
-        .then(results => {
-            console.log(
-                "first results inside post /delete/:imageId in database.deleteComments",
-                results
-            );
+        .then(() => {
             return database.deleteImage(imageId);
         })
         .then(results => {
