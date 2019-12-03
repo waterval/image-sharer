@@ -9,7 +9,8 @@
             username: "",
             file: null,
             showMoreButton: false,
-            textMoreButton: "More results"
+            textMoreButton: "More results",
+            uploadError: false
         },
         mounted: function() {
             let self = this;
@@ -28,11 +29,13 @@
         methods: {
             dataUpload: function() {
                 let self = this;
+                console.log("self: ", self);
                 let formData = new FormData();
                 formData.append("title", this.title);
                 formData.append("description", this.description);
                 formData.append("username", this.username);
                 formData.append("file", this.file);
+                console.log("formData: ", formData);
                 axios
                     .post("/upload", formData)
                     .then(results => {
@@ -40,10 +43,12 @@
                         self.title = "";
                         self.description = "";
                         self.username = "";
+                        self.uploadError = false;
                         document.getElementById("file").value = "";
                     })
                     .catch(error => {
                         console.log("error in axios post /upload", error);
+                        self.uploadError = true;
                     });
             },
             fileSelect: function(event) {
