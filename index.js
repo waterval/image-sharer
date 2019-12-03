@@ -23,6 +23,17 @@ const uploader = multer({
     storage: diskStorage,
     limits: {
         fileSize: 2097152
+    },
+    fileFilter: function(request, file, callback) {
+        var filetypes = /jpeg|jpg|png/;
+        var mimetype = filetypes.test(file.mimetype);
+        var extname = filetypes.test(
+            path.extname(file.originalname).toLowerCase()
+        );
+        if (mimetype && extname) {
+            return callback(null, true);
+        }
+        callback("Error: Only the following files are allowed: " + filetypes);
     }
 });
 
