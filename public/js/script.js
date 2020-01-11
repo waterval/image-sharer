@@ -34,11 +34,9 @@
                 formData.append("description", this.description);
                 formData.append("username", this.username);
                 formData.append("file", this.file);
-                console.log("this.file", this.file);
                 axios
                     .post("/upload", formData)
                     .then(results => {
-                        console.log("gets to results");
                         self.images.unshift(results.data.imageData[0]);
                         self.title = "";
                         self.description = "";

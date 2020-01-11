@@ -14,7 +14,6 @@ const s3 = new aws.S3({
 
 exports.upload = (request, response, next) => {
     const { file } = request;
-    console.log("file: ", file);
     if (!file) {
         console.log("multer failed inside s3.js");
         return response.sendStatus(500);
@@ -22,7 +21,7 @@ exports.upload = (request, response, next) => {
     const { filename, mimetype, size, path } = request.file;
 
     s3.putObject({
-        Bucket: "image-sharer",
+        Bucket: "image-sharing-platform",
         ACL: "public-read",
         Key: filename,
         Body: fs.createReadStream(path),
