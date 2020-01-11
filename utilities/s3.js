@@ -9,8 +9,7 @@ if (process.env.NODE_ENV == "production") {
 
 const s3 = new aws.S3({
     accessKeyId: secrets.AWS_KEY,
-    secretAccessKey: secrets.AWS_SECRET,
-    region: "eu-central-1"
+    secretAccessKey: secrets.AWS_SECRET
 });
 
 exports.upload = (request, response, next) => {
@@ -23,7 +22,7 @@ exports.upload = (request, response, next) => {
     const { filename, mimetype, size, path } = request.file;
 
     s3.putObject({
-        Bucket: "image-sharing-platform",
+        Bucket: "image-sharer",
         ACL: "public-read",
         Key: filename,
         Body: fs.createReadStream(path),
