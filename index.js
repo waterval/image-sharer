@@ -38,13 +38,6 @@ const uploader = multer({
     }
 });
 
-const limiter = rateLimit({
-    windowMs: 5 * 60 * 1000,
-    max: 3,
-    message:
-        "Too many images uploaded from this IP, please try again in 5 minutes"
-});
-
 app.use(express.static("./public"));
 
 app.use(require("body-parser").json());
@@ -63,7 +56,7 @@ app.get("/images", function(request, response) {
         });
 });
 
-app.post("/upload", limiter, uploader.single("file"), s3.upload, function(
+app.post("/upload", uploader.single("file"), s3.upload, function(
     request,
     response
 ) {
