@@ -14,6 +14,7 @@ const s3 = new aws.S3({
 
 exports.upload = (request, response, next) => {
     const { file } = request;
+    console.log("file: ", file);
     if (!file) {
         console.log("multer failed inside s3.js");
         return response.sendStatus(500);

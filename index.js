@@ -68,6 +68,7 @@ app.post("/upload", limiter, uploader.single("file"), s3.upload, function(
     response
 ) {
     const url = config.s3Url + request.file.filename;
+    console.log("url: ", url);
     const imageTitle = request.body.title;
     const imageDescription = request.body.description;
     const userName = request.body.username;
@@ -76,6 +77,7 @@ app.post("/upload", limiter, uploader.single("file"), s3.upload, function(
         .addImage(url, userName, imageTitle, imageDescription, userCreation)
         .then(results => {
             const imageData = results.rows;
+            console.log("imageData", imageData);
             response.json({
                 imageData
             });
