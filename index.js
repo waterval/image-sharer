@@ -7,7 +7,6 @@ const path = require("path");
 const s3 = require("./utilities/s3");
 const config = require("./config");
 const database = require("./utilities/database");
-const rateLimit = require("express-rate-limit");
 
 const diskStorage = multer.diskStorage({
     destination: function(request, file, callback) {
@@ -24,17 +23,6 @@ const uploader = multer({
     storage: diskStorage,
     limits: {
         fileSize: 2097152
-    },
-    fileFilter: function(request, file, callback) {
-        var filetypes = /jpeg|jpg|png/;
-        var mimetype = filetypes.test(file.mimetype);
-        var extname = filetypes.test(
-            path.extname(file.originalname).toLowerCase()
-        );
-        if (mimetype && extname) {
-            return callback(null, true);
-        }
-        callback("Error: Only the following files are allowed: " + filetypes);
     }
 });
 
@@ -61,7 +49,6 @@ app.post("/upload", uploader.single("file"), s3.upload, function(
     response
 ) {
     const url = config.s3Url + request.file.filename;
-    console.log("url: ", url);
     const imageTitle = request.body.title;
     const imageDescription = request.body.description;
     const userName = request.body.username;
