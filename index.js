@@ -57,7 +57,6 @@ app.post("/upload", uploader.single("file"), s3.upload, function(
         .addImage(url, userName, imageTitle, imageDescription, userCreation)
         .then(results => {
             const imageData = results.rows;
-            console.log("imageData", imageData);
             response.json({
                 imageData
             });
